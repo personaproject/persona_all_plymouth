@@ -55,8 +55,17 @@ progress_t= 0;
 
 # Screenshoot
 1. Persona Bar
+
+<img src="preview_persona_bar.png">
+	
 2. Persona Bar_Text
+
+<img src="preview_persona_bar_text.png">
+
+
 3. Persona Circle
+
+<img src="preview_persona_circle.png">
 
 
 

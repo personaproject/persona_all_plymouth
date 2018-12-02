@@ -5,4 +5,4 @@ ModuleName=script
 
 [script]
 ImageDir=/usr/share/plymouth/themes/persona_circle
-ScriptFile=/usr/share/plymouth/themes/persona/persona_circle.script
+ScriptFile=/usr/share/plymouth/themes/persona_circle/persona_circle.script

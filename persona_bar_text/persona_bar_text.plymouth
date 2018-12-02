@@ -5,4 +5,4 @@ ModuleName=script
 
 [script]
 ImageDir=/usr/share/plymouth/themes/persona_bar_text
-ScriptFile=/usr/share/plymouth/themes/persona/persona_bar_text.script
+ScriptFile=/usr/share/plymouth/themes/persona_bar_text/persona_bar_text.script

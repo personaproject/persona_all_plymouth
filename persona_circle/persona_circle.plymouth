@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Persona_Circle
+Description=Plymouth thats look at you
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/persona_circle
+ScriptFile=/usr/share/plymouth/themes/persona/persona_circle.script

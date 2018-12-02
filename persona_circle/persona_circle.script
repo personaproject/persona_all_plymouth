@@ -1,0 +1,382 @@
+# -------------------[ Persona Plymouth 1.0.5 ]-----------------
+# ------------[ Created by M. Syarief Hidayatulloh ]------------
+# ------------------[ me.msyariefh@gmail.com ]------------------
+# --[ Not for Commercial use, except with my permission !!!! ]--
+# ------------------------[ Terimakasih ]-----------------------
+
+#====================[Thanks to]====================#
+# Allah SWT
+# https://codepen.io/feebaa/pen/PPrLQP (Fernando de Almeida Faria ) for cirle bootloader idea
+# All my friend in Real world an in social media
+#===================================================#
+
+# ====================[ Constant here !!!!! ]==================== #
+
+maximum_msg = 5;
+ubuntufont = "Ubuntu Light 18";
+perfont = "Ubuntu Light 20";
+progressfont = "Ubuntu 15";
+hi_text = "Hi, M. Syarief Hidayatulloh";
+bye_text = "Have a Nice Day, Goodbye";
+progress_t= 0;
+fun_curve_linear = 0;
+fun_curve_in = 1;
+fun_curve_out = 2;
+fun_curve_in_out = 3;
+radiant_factor = Math.Pi / 180;
+math_pi2 = Math.Pi / 2;
+dots = 5;
+show_progress = 0;
+fade_out_dots = 1;
+fps = 13;
+anim_duration = 16087;   
+anim_frames = anim_duration / 1000 * fps;
+
+# ====================[ End of Constant ]==================== #
+
+# ====================[ Scale Desktop begin ]==================== #
+
+bg_image = Image("persona_background.png");
+window_max_width = Window.GetX() * 2 + Window.GetWidth();
+window_max_height = Window.GetY() * 2 + Window.GetHeight();
+screen_ratio = window_max_width / window_max_height;
+bg_image_ratio = bg_image.GetWidth() / bg_image.GetHeight();
+if (screen_ratio > bg_image_ratio)
+    bg_scale_factor = window_max_width / bg_image.GetWidth();
+else
+    bg_scale_factor = window_max_height / bg_image.GetHeight();
+scaled_bg_image = bg_image.Scale(bg_image.GetWidth() * bg_scale_factor,
+                                 bg_image.GetHeight() * bg_scale_factor);
+bg_sprite = Sprite(scaled_bg_image);
+bg_sprite.SetPosition(Window.GetX() + Window.GetWidth() / 2 - scaled_bg_image.GetWidth() / 2,
+                      Window.GetY() + Window.GetHeight() / 2 - scaled_bg_image.GetHeight() / 2,
+                      -10000);
+
+# ====================[ Scale Desktop end ]==================== #
+
+# ====================[ Pre_start begin ]==================== #
+// percentage
+percent_00 = 0;
+percent_07 = Math.Int( 7 / 100 * anim_frames);
+percent_30 = Math.Int(30 / 100 * anim_frames);
+percent_39 = Math.Int(39 / 100 * anim_frames);
+percent_70 = Math.Int(70 / 100 * anim_frames);
+percent_75 = Math.Int(75 / 100 * anim_frames);
+percent_76 = Math.Int(76 / 100 * anim_frames);
+percent_100 = anim_frames;
+// angle
+angle_225 = 225 * radiant_factor - math_pi2;
+angle_345 = 345 * radiant_factor - math_pi2;
+angle_455 = 455 * radiant_factor - math_pi2;
+angle_690 = 690 * radiant_factor - math_pi2;
+angle_815 = 815 * radiant_factor - math_pi2;
+angle_945 = 945 * radiant_factor - math_pi2;
+// curve
+fun curve (value, functype, input_from, input_to, output_from, output_to) 
+  {
+    input_range = input_to - input_from;
+    output_range = output_to - output_from;
+    linear_value = (value - input_from) / input_range;
+    if (functype == fun_curve_linear) {
+        return output_from + linear_value * output_range;
+    } else if (functype == fun_curve_out) {
+        return output_from + Math.Sin(linear_value * math_pi2) * output_range;
+    } else if (functype == fun_curve_in) {
+        return output_from + (1 - Math.Sin(math_pi2 + linear_value * math_pi2)) * output_range;
+    } else if (functype == fun_curve_in_out) {
+        return output_from + (1 - Math.Sin(math_pi2 + linear_value * Math.Pi)) / 2 * output_range;
+    } else {
+        return 0;
+    }
+  }
+// dots
+dot_image = Image("dot.png");
+for (i = 0; i < dots; i++)
+  {
+    dot[i].sprite = Sprite(dot_image);
+    dot[i].sprite.SetOpacity(0.0);
+    dot[i].sprite.SetZ(0);
+  }
+dot_gap = Math.Int(fps - 1);
+progress = 0.0;
+center_x = Window.GetWidth() / 2;
+center_y = Window.GetHeight() * 0.85;
+radius = Math.Max(15, Math.Int(Window.GetHeight() * 25 / 1080));   // adapt to screen height (better than width)
+opacity = 0;
+angle = 0;
+frame = 0;
+loop_count = 0;
+// x, y, opacity values
+computed_x[0] = 0;
+computed_y[0] = 0;
+computed_o[0] = 0;
+for (f = 0; f < anim_frames; f++) 
+{
+    if (f < percent_07) 
+    {
+        angle = curve(f, fun_curve_out, percent_00, percent_07, angle_225, angle_345);
+        if (fade_out_dots) 
+        {
+            opacity = curve(f, fun_curve_out, percent_00, percent_07, 0, 1);
+        } 
+        else 
+        {
+            opacity = 1;
+        }
+    } 
+    else if (f < percent_30) 
+    {
+        angle = curve(f, fun_curve_linear, percent_07, percent_30, angle_345, angle_455);
+        opacity = 1;   
+    } 
+    else if (f < percent_39) 
+    {
+        angle = curve(f, fun_curve_in_out, percent_30, percent_39, angle_455, angle_690);
+        opacity = 1;    
+    } 
+    else if (f <= percent_70) 
+    {
+        angle = curve(f, fun_curve_linear, percent_39, percent_70, angle_690, angle_815);
+        opacity = 1;    
+    } 
+    else if (f <= percent_75) 
+    {
+        angle = curve(f, fun_curve_out, percent_70, percent_75, angle_815, angle_945);
+        if (fade_out_dots) 
+        {
+            opacity = curve(f, fun_curve_out, percent_70, percent_75, 1, 0);
+        } 
+        else 
+        {
+            opacity = 1;
+        }
+    } 
+    else if (f <= percent_76) 
+    {
+        angle = angle_945;
+        opacity = 0;
+    } 
+    else if (f <= percent_100) 
+    {
+        angle = angle_945;
+        opacity = 0;
+    }
+    computed_x[f] = center_x + radius * Math.Sin(angle);
+    computed_y[f] = center_y - radius * Math.Cos(angle);
+    computed_o[f] = opacity;
+}
+
+# ====================[ Pre_start end ]==================== #
+
+# ====================[ fun_refresh start ]==================== #
+
+fun refresh () 
+{
+    inc = progress;
+    if ((loop_count == 0) && (frame < percent_30))
+        new_logo.sprite.SetOpacity(Math.Clamp(frame / percent_30, 0, 1));
+    if (inc < 0.80)
+    {
+        for (i = 0; i < dots; i++)
+        {
+            f = Math.Min(Math.Max(0, frame - i * dot_gap), anim_frames); 
+            dot[i].sprite.SetX(computed_x[f]);
+            dot[i].sprite.SetY(computed_y[f]);
+            dot[i].sprite.SetOpacity(computed_o[f]);
+        }
+    } 
+    else 
+    {
+        opacity = curve(inc, fun_curve_linear, 0.8, 1.0, 1.0, 0.0);
+        for (i = 0; i < dots; i++)
+        {
+            f = Math.Min(Math.Max(0, frame - i * dot_gap), anim_frames);
+            dot[i].sprite.SetX(computed_x[f]);
+            dot[i].sprite.SetY(computed_y[f]);
+            dot[i].sprite.SetOpacity(computed_o[f] * opacity);
+        }
+       
+        new_logo.sprite.SetOpacity(opacity);
+    }
+    if (frame >= anim_frames) 
+    {
+        loop_count++;
+        frame = 0;
+    } else 
+    {
+        frame++;
+    }
+}
+
+Plymouth.SetRefreshFunction(refresh);
+
+# ====================[ fun_refresh end ]==================== #
+
+# ====================[ Text_center begin ]==================== #
+
+per.image = Image.Text ("Persona Ubuntu",255,255,255,1, perfont);
+        per.sprite = Sprite(per.image);
+        per.x = Window.GetX() + Window.GetWidth()  / 2 - per.image.GetWidth() / 2;
+        per.y = Window.GetY() + Window.GetHeight() * 0.45  - per.image.GetHeight() / 2;
+        per.sprite.SetPosition(per.x, per.y, 2);
+
+  if (Plymouth.GetMode () == "boot")
+     { 
+        text.image = Image.Text (hi_text,255,255,255,1, ubuntufont);
+        text.sprite = Sprite(text.image);
+        text.x = Window.GetX() + Window.GetWidth()  / 2 - text.image.GetWidth() / 2;
+        text.y = Window.GetY() + Window.GetHeight() * 0.77  - text.image.GetHeight() / 2;
+        text.sprite.SetPosition(text.x, text.y, 2);
+      }
+  else 
+     {
+        text_end.image = Image.Text(bye_text,255,255,255,1, ubuntufont);
+        text_end.sprite = Sprite(text_end.image);
+        text_end.x = Window.GetX() + Window.GetWidth()  / 2 - text_end.image.GetWidth() / 2;
+        text_end.y = Window.GetY() + Window.GetHeight() * 0.77  - text_end.image.GetHeight() / 2;
+        text_end.sprite.SetPosition(text_end.x, text_end.y, 2);
+      }
+# ====================[ Text_center end ]==================== #
+
+# ====================[ persona Logo begin ]==================== #
+
+new_logo.image = Image("persona.png");
+    new_logo.sprite = Sprite();
+    new_logo.x = Window.GetWidth() / 2 - new_logo.image.GetWidth()  / 2;
+    new_logo.y = Window.GetHeight() * 0.35 - new_logo.image.GetHeight() / 2;
+    new_logo.sprite.SetPosition(new_logo.x, new_logo.y, 10);
+    new_logo.sprite.SetImage(new_logo.image);
+
+# ====================[ Persona Logo end ]==================== #
+
+# ====================[ Dialog_script begin ]==================== #
+
+status = "normal";
+
+fun dialog_setup()
+  {
+    local.box;
+    local.lock;
+    local.entry;
+    
+    box.image = Image("box.png");
+    lock.image = Image("lock.png");
+    entry.image = Image("entry.png");
+    
+    box.sprite = Sprite(box.image);
+    box.x = Window.GetX() + Window.GetWidth()  / 2 - box.image.GetWidth ()/2;
+    box.y = Window.GetY() + Window.GetHeight() / 2 - box.image.GetHeight()/2;
+    box.z = 10000;
+    box.sprite.SetPosition(box.x, box.y, box.z);
+    
+    lock.sprite = Sprite(lock.image);
+    lock.x = box.x + box.image.GetWidth()/2 - (lock.image.GetWidth() + entry.image.GetWidth()) / 2;
+    lock.y = box.y + box.image.GetHeight()/2 - lock.image.GetHeight()/2;
+    lock.z = box.z + 1;
+    lock.sprite.SetPosition(lock.x, lock.y, lock.z);
+    
+    entry.sprite = Sprite(entry.image);
+    entry.x = lock.x + lock.image.GetWidth();
+    entry.y = box.y + box.image.GetHeight()/2 - entry.image.GetHeight()/2;
+    entry.z = box.z + 1;
+    entry.sprite.SetPosition(entry.x, entry.y, entry.z);
+    
+    global.dialog.box = box;
+    global.dialog.lock = lock;
+    global.dialog.entry = entry;
+    global.dialog.bullet_image = Image("bullet.png");
+    dialog_opacity (1);
+  }
+    
+fun dialog_opacity(opacity)
+  {
+    dialog.box.sprite.SetOpacity (opacity);
+    dialog.lock.sprite.SetOpacity (opacity);
+    dialog.entry.sprite.SetOpacity (opacity);
+    for (index = 0; dialog.bullet[index]; index++)
+      {
+        dialog.bullet[index].sprite.SetOpacity(opacity);
+      }
+  }
+
+fun display_normal_callback ()
+  {
+    global.status = "normal";
+    if (global.dialog)
+      dialog_opacity (0);
+  }
+
+fun display_password_callback (prompt, bullets)
+  {
+    global.status = "password";
+    if (!global.dialog)
+  dialog_setup();
+    else
+  dialog_opacity(1);
+    for (index = 0; dialog.bullet[index] || index < bullets; index++)
+      {
+        if (!dialog.bullet[index])
+          {
+            dialog.bullet[index].sprite = Sprite(dialog.bullet_image);
+            dialog.bullet[index].x = dialog.entry.x + index * dialog.bullet_image.GetWidth();
+            dialog.bullet[index].y = dialog.entry.y + dialog.entry.image.GetHeight() / 2 - dialog.bullet_image.GetHeight() / 2;
+            dialog.bullet[index].z = dialog.entry.z + 1;
+            dialog.bullet[index].sprite.SetPosition(dialog.bullet[index].x, dialog.bullet[index].y, dialog.bullet[index].z);
+          }
+        if (index < bullets)
+          dialog.bullet[index].sprite.SetOpacity(1);
+        else
+          dialog.bullet[index].sprite.SetOpacity(0);
+      }
+  }
+
+Plymouth.SetDisplayNormalFunction(display_normal_callback);
+Plymouth.SetDisplayPasswordFunction(display_password_callback);
+
+# ====================[ Dialog_script end ]==================== #
+
+# ====================[ Fun Quit begin ]==================== #
+
+fun quit_callback ()
+  {
+  }
+
+Plymouth.SetQuitFunction(quit_callback);
+
+# ====================[ Fun Quit end ]==================== #
+
+# ====================[ Message begin ]==================== #
+
+msg_sprites; 
+num_displayed_msg = 0; 
+next_msg_idx = 0; 
+next_msg_y; 
+fun message_callback (text)
+  {
+    if (num_displayed_msg < maximum_msg)
+      {
+        next_msg_y = 10;
+        for (i = 0; i < num_displayed_msg; i++)
+          next_msg_y += msg_sprites[i].GetImage().GetHeight() + 1; 
+        num_displayed_msg++;
+      }
+    else
+      {
+        move_y_by = -1 - msg_sprites[(next_msg_idx + 1) % maximum_msg].GetImage().GetHeight();
+  for (i = 0; i < maximum_msg; i++)
+          {
+            msg = msg_sprites[(next_msg_idx + 1 + i) % maximum_msg];
+            msg.SetY(msg.GetY() + move_y_by);
+          }
+      }
+    next_msg_image = Image.Text(text, 1, 1, 1, 1);
+    msg_sprites[next_msg_idx] = Sprite();
+    msg_sprites[next_msg_idx].SetPosition(Window.GetX() + 10, Window.GetY() + next_msg_y, 10000);
+    msg_sprites[next_msg_idx].SetImage(next_msg_image);
+
+    next_msg_idx = (next_msg_idx + 1) % maximum_msg;
+  }
+
+Plymouth.SetMessageFunction(message_callback);
+
+# ====================[ Message end ]==================== #

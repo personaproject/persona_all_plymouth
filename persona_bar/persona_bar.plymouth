@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Persona_Bar
+Description=Plymouth thats look at you
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/persona_bar
+ScriptFile=/usr/share/plymouth/themes/persona/persona_bar.script

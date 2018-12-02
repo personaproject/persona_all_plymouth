@@ -43,7 +43,7 @@ bg_sprite.SetPosition(Window.GetX() + Window.GetWidth() / 2 - scaled_bg_image.Ge
         text.image = Image.Text (hi_text,255,255,255,1, ubuntufont);
         text.sprite = Sprite(text.image);
         text.x = Window.GetX() + Window.GetWidth()  / 2 - text.image.GetWidth() / 2;
-        text.y = Window.GetY() + Window.GetHeight() * 0.77  - text.image.GetHeight() / 2;
+        text.y = Window.GetY() + Window.GetHeight() * 0.505  - text.image.GetHeight() / 2;
         text.sprite.SetPosition(text.x, text.y, 2);
       }
   else 
@@ -51,7 +51,7 @@ bg_sprite.SetPosition(Window.GetX() + Window.GetWidth() / 2 - scaled_bg_image.Ge
         text_end.image = Image.Text(bye_text,255,255,255,1, ubuntufont);
         text_end.sprite = Sprite(text_end.image);
         text_end.x = Window.GetX() + Window.GetWidth()  / 2 - text_end.image.GetWidth() / 2;
-        text_end.y = Window.GetY() + Window.GetHeight() * 0.77  - text_end.image.GetHeight() / 2;
+        text_end.y = Window.GetY() + Window.GetHeight() * 0.505  - text_end.image.GetHeight() / 2;
         text_end.sprite.SetPosition(text_end.x, text_end.y, 2);
       }
 # ====================[ Text_center end ]==================== #

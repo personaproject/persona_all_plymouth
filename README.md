@@ -44,14 +44,7 @@ progress_t= 0;
   * Change "ubuntufont"  with your fav. Font
   * Change "hi_text"  with your fav. word that will show at booting
   * Change "bye_text"  with your fav. word that will show at shutting down or restarting
- 
-5 . (edit Logo Ubuntu or Persona) 
-  * at persona_bar (replace ubuntu_alt png)
-  * at persona_bar_text (replace ubuntu_alt.png)
-  * at persona_circle (replace persona.png)
-6. (additional; only in persona_circle.script) : 
-    * search : ``` per.image = Image.Text ("Persona Ubuntu",255,255,255,1, perfont); ```
-    * Change Persona Ubuntu with your OS or DE;
+
 
 # Screenshoot
 1. Persona Bar

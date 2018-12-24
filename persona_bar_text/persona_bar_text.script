@@ -60,7 +60,7 @@ if (Plymouth.GetMode () == "boot")
 
 # ====================[ Ubuntu Logo begin ]==================== #
 
-logo_1_filename = "ubuntu_alt.png";
+logo_1_filename = "persona.png";
 logo_1.image = Image (logo_1_filename);
 logo_1.sprite = Sprite ();
 logo_1.sprite.SetImage (logo_1.image);

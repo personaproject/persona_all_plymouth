@@ -6,3 +6,6 @@ sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth d
 sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/persona_circle/persona_circle.plymouth 100
 sudo update-alternatives --config default.plymouth
 sudo update-initramfs -u
+cd
+sudo rm -R persona_all_plymouth
+exit

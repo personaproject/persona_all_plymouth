@@ -10,7 +10,7 @@
 1. open terminal
 2. enter this command
 ```
-git clone https://github.com/personaproject/persona_all_plymouth
+git clone https://github.com/ryuffhant/persona_all_plymouth
 cd persona_all_plymouth
 chmod +x ./install.sh
 sudo ./install.sh

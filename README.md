@@ -12,23 +12,29 @@
 ```
 git clone https://github.com/personaproject/persona_all_plymouth
 cd persona_all_plymouth
-chmod ug+x ./install.sh
-./install.sh
+chmod +x ./install.sh
+sudo ./install.sh
 ```
 # How to Edit
 
 1. open terminal
 2. enter this command
 ```
-sudo nautilus /usr/share/plymouth/themes
+sudo gedit /usr/share/plymouth/themes/persona_bar/persona_bar.script
 ```
-3. open 
-  * persona_bar folder (to edit Persona_bar Plymouth)
-  * persona_bar_text folder (to edit Persona_bar_text Plymouth)
-  * persona_circle folder (to edit Persona_circle Plymouth)
+(to edit Persona_bar Plymouth)
+
+```
+sudo gedit /usr/share/plymouth/themes/persona_bar_text/persona_bar_text.script
+```
+(to edit Persona_bar_text Plymouth)
+
+```
+sudo gedit /usr/share/plymouth/themes/persona_circle/persona_circle.script
+```
+(to edit Persona_circle Plymouth)
 
 
-4. (edit Welcome and good bye text) search at .script :
 ```
 # ====================[ Constant here !!!!! ]==================== #
 
@@ -50,7 +56,7 @@ progress_t= 0;
 1. Persona Bar
 
 <img src="preview persona_bar.png">
-	
+
 2. Persona Bar_Text
 
 <img src="preview persona_bar_text.png">
@@ -66,4 +72,3 @@ Any Questions?
 Plz contact me on
 * me.msyariefh@gmail.com
 * 085225915434 (Whatsapp)
-

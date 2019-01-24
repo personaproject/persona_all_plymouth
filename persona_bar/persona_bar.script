@@ -60,7 +60,7 @@ bg_sprite.SetPosition(Window.GetX() + Window.GetWidth() / 2 - scaled_bg_image.Ge
 
 new_logo.image = Image("persona.png");
     new_logo.sprite = Sprite();
-    new_logo.x = Window.GetWidth() / 2 - new_logo.image.GetWidth()  / 2;
+    new_logo.x = Window.GetX() + Window.GetWidth() / 2 - new_logo.image.GetWidth()  / 2;
     new_logo.y = Window.GetHeight() * 0.35 - new_logo.image.GetHeight() / 2;
     new_logo.sprite.SetPosition(new_logo.x, new_logo.y, 10);
     new_logo.sprite.SetImage(new_logo.image);

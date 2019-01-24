@@ -99,7 +99,7 @@ for (i = 0; i < dots; i++)
   }
 dot_gap = Math.Int(fps - 1);
 progress = 0.0;
-center_x = Window.GetWidth() / 2;
+center_x = Window.GetX() + Window.GetWidth() / 2;
 center_y = Window.GetHeight() * 0.85;
 radius = Math.Max(15, Math.Int(Window.GetHeight() * 25 / 1080));   // adapt to screen height (better than width)
 opacity = 0;
@@ -242,7 +242,7 @@ per.image = Image.Text ("Persona Ubuntu",255,255,255,1, perfont);
 
 new_logo.image = Image("persona.png");
     new_logo.sprite = Sprite();
-    new_logo.x = Window.GetWidth() / 2 - new_logo.image.GetWidth()  / 2;
+    new_logo.x = Window.GetX() + Window.GetWidth() / 2 - new_logo.image.GetWidth()  / 2;
     new_logo.y = Window.GetHeight() * 0.35 - new_logo.image.GetHeight() / 2;
     new_logo.sprite.SetPosition(new_logo.x, new_logo.y, 10);
     new_logo.sprite.SetImage(new_logo.image);

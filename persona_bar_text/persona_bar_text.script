@@ -66,7 +66,7 @@ logo_1.sprite = Sprite ();
 logo_1.sprite.SetImage (logo_1.image);
 logo_1.width = logo_1.image.GetWidth ();
 logo_1.height = logo_1.image.GetHeight ();
-logo_1.x = Window.GetWidth () /2 - logo_1.width /2;
+logo_1.x = Window.GetX() + Window.GetWidth () /2 - logo_1.width /2;
 logo_1.y = Window.GetHeight () * 0.37 - logo_1.height /2;
 logo_1.z = 1000;
 logo_1.sprite.SetX (logo_1.x);

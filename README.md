@@ -1,6 +1,6 @@
 <div align="center">
 	<h1>Persona_Plymouth</h1>
-	<p>Playmouth thats look at you</p>
+	<p>A Simple and Elegant Plymouth that Reflects You</p>
 </div>
 
 
@@ -20,15 +20,22 @@ chmod ug+x ./install.sh
 1. open terminal
 2. enter this command
 ```
-sudo nautilus /usr/share/plymouth/themes
+sudo gedit /usr/share/plymouth/themes/persona_bar/persona_bar.script
 ```
-3. open 
-  * persona_bar folder (to edit Persona_bar Plymouth)
-  * persona_bar_text folder (to edit Persona_bar_text Plymouth)
-  * persona_circle folder (to edit Persona_circle Plymouth)
+(to edit Persona_bar Plymouth)
+
+```
+sudo gedit /usr/share/plymouth/themes/persona_bar_text/persona_bar_text.script
+```
+(to edit Persona_bar_text Plymouth)
+
+```
+sudo gedit /usr/share/plymouth/themes/persona_circle/persona_circle.script
+```
+(to edit Persona_circle Plymouth)
 
 
-4. (edit Welcome and good bye text) search at .script :
+3. (edit Welcome and good bye text) search at .script :
 ```
 # ====================[ Constant here !!!!! ]==================== #
 
@@ -37,7 +44,6 @@ ubuntufont = "Ubuntu Light 18";
 perfont = "Ubuntu Light 20";
 progressfont = "Ubuntu 15";
 hi_text = "Hi, M. Syarief Hidayatulloh";
-bye_text = "Have a Nice Day, Goodbye";
 progress_t= 0;
 
 ```
